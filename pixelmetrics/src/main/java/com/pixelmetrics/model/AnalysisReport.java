@@ -4,6 +4,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/*
+ * A clean container object that holds all the finished answers to your five research questions 
+ * (genre totals, regional sales, top publisher stats, Pearson correlations, and ESRB averages) so the UI doesn't have to do any math itself.
+ */
+
+
 public class AnalysisReport {
 
     public static class PublisherPerformance {
@@ -12,6 +18,7 @@ public class AnalysisReport {
         private final double totalGlobalSales;
         private final Double averageCriticScore; // Nullable if no rated games
 
+        //Encapsulates a specific publisher's game count, total global sales, and nullable average critic score.
         public PublisherPerformance(String publisher, int gameCount, double totalGlobalSales, Double averageCriticScore) {
             this.publisher = publisher;
             this.gameCount = gameCount;
@@ -25,6 +32,7 @@ public class AnalysisReport {
         public Double getAverageCriticScore() { return averageCriticScore; }
     }
 
+    //Stores the game count, average global sales, and nullable average critic score for a given ESRB age rating.
     public static class EsrbPerformance {
         private final String rating;
         private final int gameCount;
@@ -50,7 +58,9 @@ public class AnalysisReport {
     private final double criticSalesCorrelation;
     private final double userSalesCorrelation;
     private final List<EsrbPerformance> esrbBreakdown;
-
+    
+    //HashMap acts as a fast lookup table that pairs each genre or region name (String) with its calculated sales total (Double), 
+    //which the constructor then locks into a read-only view so the report's numbers can't be modified after creation.
     public AnalysisReport(
             Map<String, Double> globalSalesByGenre,
             Map<String, Double> regionalSalesBreakdown,
